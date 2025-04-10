@@ -16,7 +16,6 @@ import numpy as np
 import sdig.util.zc as zc
 from sdig.erddap.info import Info
 import time
-import dash_bootstrap_components as dbc
 
 
 height_of_row = 345
@@ -221,7 +220,9 @@ def layout(mission_id=None, **params):
                     ddk.ControlCard(children=[
                         ddk.CardHeader(title='Data Download'),
                         ddk.ControlItem(label="Full resolution of variables shown in timeseries plot:", children=[
-                             html.Button("Download", id='download', disabled=True)
+                            ddk.Modal(width='65%', id='download-dialog', target_id='download-modal-content', hide_target=True, children=[
+                                html.Button("Download", id='download', disabled=True)
+                            ]),
                         ])
                     ])
                 ]),
@@ -330,31 +331,28 @@ def layout(mission_id=None, **params):
                     dcc.Loading(ddk.Graph(id='timeseries-plots', figure=blank_graph))
                 ])
             ]),
-            dbc.Modal(id='download-dialog', children=[
-                dbc.ModalHeader(children=['Download links for the drones show in the timeseries plot:']),
-                dbc.ModalBody(id='download-links', children="some links"),
-                dbc.ModalFooter(dbc.Button("Close", id="close", className="ml-auto")),
-            ])
-        ])
+            ddk.Card(id='download-modal-content', width=.8, children=[
+                ddk.CardHeader(children=['Download links for the drones show in the timeseries plot:']),
+                html.Div(id='download-links', children="some links"),
+            ]),
+        ]),
+
+
         return layout
 
 
 
 @callback(
     [
-        Output('download-dialog', 'is_open'),
         Output('download-links', 'children')
     ],
     [
         Input('download', 'n_clicks'),
-        Input('close', 'n_clicks')
     ]
 )
-def open_download_dialog(open_click, close_click):
+def open_download_dialog(open_click):
     if callback_context.triggered_id is None:
-        return [False, dash.no_update]
-    if "close" in callback_context.triggered_id:
-        return [False, dash.no_update]
+        return [dash.no_update]
     download_s = constants.redis_instance.hget("downloads", "urls")
     thead = html.Thead(html.Tr([html.Th("Saildrone"), html.Th("CSV"), html.Th("HTML"), html.Th("netCDF")]))
     body_rows = []
@@ -374,9 +372,9 @@ def open_download_dialog(open_click, close_click):
                 )
             body_rows.append(row)
         table = html.Table(children=[thead, html.Tbody(children=body_rows)], style={"width":"100%"})
-        return [True, table]
+        return [table]
     else:
-        return [False, dash.no_update]
+        return [dash.no_update]
 
 
 @callback(

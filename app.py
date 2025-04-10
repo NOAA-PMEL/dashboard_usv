@@ -6,7 +6,6 @@ import json
 import os
 import sys
 import constants
-import dash_bootstrap_components as dbc
 import tasks
 
 import diskcache
@@ -16,7 +15,6 @@ from celery.schedules import crontab
 from celery.utils.log import get_task_logger
 
 logger = get_task_logger(__name__)
-
 
 celery_app = Celery(broker=os.environ.get("REDIS_URL", "redis://127.0.0.1:6379"), backend=os.environ.get("REDIS_URL", "redis://127.0.0.1:6379"))
 if os.environ.get("DASH_ENTERPRISE_ENV") == "WORKSPACE":
@@ -75,7 +73,7 @@ for collection in sorted(collections, reverse=True):
     item.children=member_children
     menu.append(item)
 
-app = Dash(__name__, use_pages=True, suppress_callback_exceptions=True, background_callback_manager=background_callback_manager, external_stylesheets=[dbc.themes.BOOTSTRAP]) 
+app = Dash(__name__, use_pages=True, suppress_callback_exceptions=True, background_callback_manager=background_callback_manager, ) 
 server = app.server  # expose server variable for Procfile
 
 app.layout = ddk.App(show_editor=False, theme=constants.theme, children=[
@@ -133,11 +131,12 @@ app.layout = ddk.App(show_editor=False, theme=constants.theme, children=[
                 ]),
                 ddk.Block(width=.7,children=[html.Img(src=app.get_asset_url('logo-PMEL-lockup-light_noaaPMEL_horizontal_rgb_2024.png'), style={'height': '90px', 'padding':'14px'})])
             ])
-        ])
+        ]),
+
     ]),
 
 ])
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run(debug=True)
