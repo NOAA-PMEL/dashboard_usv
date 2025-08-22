@@ -389,23 +389,23 @@
                     },
                     "drones": {
                         "1031.0": {
-                            "url": "http://hazy.pmel.noaa.gov:8140/erddap/tabledap/sd1031_hurricane_2021",
+                            "url": "http://smokey.pmel.noaa.gov:8140/erddap/tabledap/sd1031_hurricane_2021",
                             "label": "1031"
                         },
                         "1040.0": {
-                            "url": "http://hazy.pmel.noaa.gov:8140/erddap/tabledap/sd1040_hurricane_2021",
+                            "url": "http://smokey.pmel.noaa.gov:8140/erddap/tabledap/sd1040_hurricane_2021",
                             "label": "1040"
                         },
                         "1045.0": {
-                            "url": "http://hazy.pmel.noaa.gov:8140/erddap/tabledap/sd1045_hurricane_2021",
+                            "url": "http://smokey.pmel.noaa.gov:8140/erddap/tabledap/sd1045_hurricane_2021",
                             "label": "1045"
                         },
                         "1048.0": {
-                            "url": "http://hazy.pmel.noaa.gov:8140/erddap/tabledap/sd1048_hurricane_2021",
+                            "url": "http://smokey.pmel.noaa.gov:8140/erddap/tabledap/sd1048_hurricane_2021",
                             "label": "1048"
                         },
                         "1060.0": {
-                            "url": "http://hazy.pmel.noaa.gov:8140/erddap/tabledap/sd1060_hurricane_2021",
+                            "url": "http://smokey.pmel.noaa.gov:8140/erddap/tabledap/sd1060_hurricane_2021",
                             "label": "1060"
                         }
                     }
@@ -425,31 +425,31 @@
                     },
                     "drones":{
                         "1031.0": {
-                            "url": "http://hazy.pmel.noaa.gov:8140/erddap/tabledap/sd1031_hurricane_2022",
+                            "url": "http://smokey.pmel.noaa.gov:8140/erddap/tabledap/sd1031_hurricane_2022",
                             "label": "1031"
                         },
                         "1032.0": {
-                            "url": "http://hazy.pmel.noaa.gov:8140/erddap/tabledap/sd1032_hurricane_2022",
+                            "url": "http://smokey.pmel.noaa.gov:8140/erddap/tabledap/sd1032_hurricane_2022",
                             "label": "1032"
                         },
                         "1040.0": {
-                            "url": "http://hazy.pmel.noaa.gov:8140/erddap/tabledap/sd1040_hurricane_2022",
+                            "url": "http://smokey.pmel.noaa.gov:8140/erddap/tabledap/sd1040_hurricane_2022",
                             "label": "1040"
                         },
                         "1059.0": {
-                            "url": "http://hazy.pmel.noaa.gov:8140/erddap/tabledap/sd1059_hurricane_2022",
+                            "url": "http://smokey.pmel.noaa.gov:8140/erddap/tabledap/sd1059_hurricane_2022",
                             "label": "1059"
                         },
                         "1078.0": {
-                            "url": "http://hazy.pmel.noaa.gov:8140/erddap/tabledap/sd1078_hurricane_2022",
+                            "url": "http://smokey.pmel.noaa.gov:8140/erddap/tabledap/sd1078_hurricane_2022",
                             "label": "1078"
                         },
                         "1083.0": {
-                            "url": "http://hazy.pmel.noaa.gov:8140/erddap/tabledap/sd1083_hurricane_2022",
+                            "url": "http://smokey.pmel.noaa.gov:8140/erddap/tabledap/sd1083_hurricane_2022",
                             "label": "1083"
                         },
                         "1084.0": {
-                            "url": "http://hazy.pmel.noaa.gov:8140/erddap/tabledap/sd1084_hurricane_2022",
+                            "url": "http://smokey.pmel.noaa.gov:8140/erddap/tabledap/sd1084_hurricane_2022",
                             "label": "1084"
                         }  
                     }
@@ -555,51 +555,51 @@
                     },
                     "drones":{
                         "1031.0": {
-                            "url": "http://hazy.pmel.noaa.gov:8140/erddap/tabledap/sd1031_hurricane_2023",
+                            "url": "http://smokey.pmel.noaa.gov:8140/erddap/tabledap/sd1031_hurricane_2023",
                             "label": "1031"
                         },
                         "1036.0": {
-                            "url": "http://hazy.pmel.noaa.gov:8140/erddap/tabledap/sd1036_hurricane_2023",
+                            "url": "http://smokey.pmel.noaa.gov:8140/erddap/tabledap/sd1036_hurricane_2023",
                             "label": "1036"
                         },
                         "1040.0": {
-                            "url": "http://hazy.pmel.noaa.gov:8140/erddap/tabledap/sd1040_hurricane_2023",
+                            "url": "http://smokey.pmel.noaa.gov:8140/erddap/tabledap/sd1040_hurricane_2023",
                             "label": "1040"
                         },
                         "1041.0": {
-                            "url": "http://hazy.pmel.noaa.gov:8140/erddap/tabledap/sd1041_hurricane_2023",
+                            "url": "http://smokey.pmel.noaa.gov:8140/erddap/tabledap/sd1041_hurricane_2023",
                             "label": "1041"
                         },
                         "1042.0": {
-                            "url": "http://hazy.pmel.noaa.gov:8140/erddap/tabledap/sd1042_hurricane_2023",
+                            "url": "http://smokey.pmel.noaa.gov:8140/erddap/tabledap/sd1042_hurricane_2023",
                             "label": "1042"
                         },
                         "1045.0": {
-                            "url": "http://hazy.pmel.noaa.gov:8140/erddap/tabledap/sd1045_hurricane_2023",
+                            "url": "http://smokey.pmel.noaa.gov:8140/erddap/tabledap/sd1045_hurricane_2023",
                             "label": "1045"
                         },
                         "1057.0": {
-                            "url": "http://hazy.pmel.noaa.gov:8140/erddap/tabledap/sd1057_hurricane_2023",
+                            "url": "http://smokey.pmel.noaa.gov:8140/erddap/tabledap/sd1057_hurricane_2023",
                             "label": "1057"
                         },
                         "1064.0": {
-                            "url": "http://hazy.pmel.noaa.gov:8140/erddap/tabledap/sd1064_hurricane_2023",
+                            "url": "http://smokey.pmel.noaa.gov:8140/erddap/tabledap/sd1064_hurricane_2023",
                             "label": "1064"
                         },
                         "1065.0": {
-                            "url": "http://hazy.pmel.noaa.gov:8140/erddap/tabledap/sd1065_hurricane_2023",
+                            "url": "http://smokey.pmel.noaa.gov:8140/erddap/tabledap/sd1065_hurricane_2023",
                             "label": "1065"
                         },
                         "1068.0": {
-                            "url": "http://hazy.pmel.noaa.gov:8140/erddap/tabledap/sd1068_hurricane_2023",
+                            "url": "http://smokey.pmel.noaa.gov:8140/erddap/tabledap/sd1068_hurricane_2023",
                             "label": "1068"
                         },
                         "1069.0": {
-                            "url": "http://hazy.pmel.noaa.gov:8140/erddap/tabledap/sd1069_hurricane_2023",
+                            "url": "http://smokey.pmel.noaa.gov:8140/erddap/tabledap/sd1069_hurricane_2023",
                             "label": "1069"
                         },
                         "1083.0": {
-                            "url": "http://hazy.pmel.noaa.gov:8140/erddap/tabledap/sd1083_hurricane_2023",
+                            "url": "http://smokey.pmel.noaa.gov:8140/erddap/tabledap/sd1083_hurricane_2023",
                             "label": "1083"
                         }
                     }
