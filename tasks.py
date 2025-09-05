@@ -13,6 +13,10 @@ import ssl
 import urllib.parse
 import plotly.express as px
 
+import time
+
+timeout = 1800
+
 ssl._create_default_https_context = ssl._create_unverified_context
 logger = get_task_logger(__name__)
 
@@ -42,7 +46,8 @@ def update_mission(mid, mission):
         base_url = drone['url'] + '.csv?'
         time_url = base_url + urllib.parse.quote_plus('time&orderByMinMax("time")')
         print("time range:", time_url)
-        tdf = pd.read_csv(time_url, skiprows=[1])
+        tdf = read_csv_with_retries_requests(time_url, retries=10, delay=60)
+        # tdf = pd.read_csv(time_url, skiprows=[1])
         start_date = tdf['time'].min()
         end_date = tdf['time'].max()
         req_vars = 'latitude,longitude,time,' + dsg_id
@@ -50,7 +55,8 @@ def update_mission(mid, mission):
         q = urllib.parse.quote(query)
         url = base_url + req_vars + q
         print("Locations:", url)
-        df = pd.read_csv(url, skiprows=[1])
+        df = read_csv_with_retries_requests(url, retries=10, delay=60)
+        # df = pd.read_csv(url, skiprows=[1])
         # Don't drop, just take the rows where lat or lon is not NA:
         df = df[df['latitude'].notna()]
         df = df[df['longitude'].notna()]
@@ -105,5 +111,49 @@ def load_missions():
             outeridx = outeridx + 1
                 
     logger.info('Setting the mission locations...')
-    locations_df.to_sql(constants.locations_table, constants.postgres_engine, if_exists='replace', index=False)  
+    locations_df.to_sql(constants.locations_table, constants.postgres_engine, if_exists='replace', index=False)
 
+import pandas as pd
+import requests
+import time
+import io
+
+def read_csv_with_retries_requests(url, retries=10, delay=5):
+    """
+    Downloads a CSV file from a URL using the requests library, and converts
+    it to a pandas DataFrame with retry logic.
+
+    Args:
+        url (str): The URL of the CSV file.
+        retries (int): The number of times to retry the download. Defaults to 10.
+        delay (int): The delay in seconds between retries. Defaults to 5.
+
+    Returns:
+        pandas.DataFrame: The DataFrame containing the CSV data, or None if the download fails.
+    """
+    for i in range(retries):
+        try:
+            response = requests.get(url, timeout=timeout)
+            response.raise_for_status()  # Raise an HTTPError for bad responses (4xx or 5xx)
+
+            # Use io.StringIO to treat the string as a file
+            s = io.StringIO(response.text)
+            df = pd.read_csv(s)
+            print("Download successful! 🎉")
+            return df
+        except (requests.exceptions.ConnectTimeout, requests.exceptions.ReadTimeout, requests.exceptions.Timeout, requests.exceptions.RequestException, OSError, TimeoutError) as rexe:
+            print(f"Attempt {i+1} failed: {rexe}")
+            if i < retries - 1:
+                print(f"Retrying in {delay} seconds...")
+                time.sleep(delay)
+            else:
+                print("All retry attempts failed. 😔")
+                return None
+        except Exception as e: # Catch any other unexpected errors
+            print(f"An unexpected error occurred: {e}")
+            if i < retries - 1:
+                print(f"Retrying in {delay} seconds...")
+                time.sleep(delay)
+            else:
+                print("All retry attempts failed. 😔")
+                return None
