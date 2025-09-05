@@ -38,11 +38,11 @@ connection_string = "postgresql+pg8000" + os.environ.get(
 postgres_engine = create_engine(connection_string, poolclass=NullPool)
 
 if os.environ.get("DASH_ENTERPRISE_ENV") == "WORKSPACE":
-    base = '/workspace/view/workspace-saildrone/'
+    base = '/workspace/view/workspace-usv/'
     assets = base + '/assets/'
 else:
-    base = '/saildrone/'
-    assets = '/saildrone/assets/'
+    base = '/usv/'
+    assets = '/usv/assets/'
 
 VISIBLE = {'visibility': 'visible'}
 HIDDEN = {'visibility': 'hidden'}

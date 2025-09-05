@@ -138,7 +138,7 @@ def read_csv_with_retries_requests(url, retries=10, delay=5):
 
             # Use io.StringIO to treat the string as a file
             s = io.StringIO(response.text)
-            df = pd.read_csv(s)
+            df = pd.read_csv(s, skiprows=[1])
             print("Download successful! 🎉")
             return df
         except (requests.exceptions.ConnectTimeout, requests.exceptions.ReadTimeout, requests.exceptions.Timeout, requests.exceptions.RequestException, OSError, TimeoutError) as rexe:

@@ -1,7 +1,7 @@
 {
     "collections":{
         "saildrone_2017": {
-            "title": "2017 Saildrone Missions",
+            "title": "2017 USV Missions",
             "missions": {
                 "2017_1_tpos": {
                     "active": "false",
@@ -26,7 +26,7 @@
             }
         },
         "saildrone_2018": {
-            "title": "2018 Saildrone Missions",
+            "title": "2018 USV Missions",
             "missions": {
                 "2018_1_arctic": {
                     "active": "false",
@@ -119,7 +119,7 @@
             }
         },
         "saildrone_2019": {
-            "title": "2019 Saildrone Missions",
+            "title": "2019 USV Missions",
             "missions": {
                 "2019_1_arctic": {
                     "active": "false",
@@ -232,7 +232,7 @@
             }
         },
         "saildrone_2020":{
-            "title": "2020 Saildrone Missions",
+            "title": "2020 USV Missions",
             "missions": {
                 "2020_1_arctic_ocs": {
                     "active": "false",
@@ -289,7 +289,7 @@
             }
         },
         "saildrone_2021":{
-            "title": "2021 Saildrone Missions",
+            "title": "2021 USV Missions",
             "missions": {
                 "2021_6_tpos": {
                     "active": "false",
@@ -413,7 +413,7 @@
             }
         },
         "saildrone_2022":{
-            "title": "2022 Saildrone Missions",
+            "title": "2022 USV Missions",
             "missions": {
                 "2022_1_atlantic_hurricane": {
                     "active": "false",
@@ -497,7 +497,7 @@
             }
         },
         "saildrone_2023":{
-            "title": "2023 Saildrone Missions",
+            "title": "2023 USV Missions",
             "missions": {
                 "2023_2_tpos": {
                     "active": "true",
@@ -525,7 +525,7 @@
             }
         },
         "saildrone_2024":{
-            "title": "2024 Saildrone Missions",
+            "title": "2024 USV Missions",
             "missions": {
                 "2024_tpos": {
                     "active": "true",
