@@ -15,6 +15,10 @@ import plotly.express as px
 
 import time
 
+import requests
+import time
+import io
+
 timeout = 1800
 
 ssl._create_default_https_context = ssl._create_unverified_context
@@ -40,8 +44,10 @@ def update_mission(mid, mission):
         color = px.colors.qualitative.Alphabet[dix]
         logger.debug('Reading drone ' + str(d))
         drone = drones[d]
-        info = Info(drone['url']) 
+        info_url = drone['url']
+        info = Info(info_url) 
         depth_name, dsg_var = info.get_dsg_info()
+        drone_vars, d_long_names, d_units, standard_names, var_types = info.get_variables()
         dsg_id = dsg_var[info.get_dsg_type()]
         base_url = drone['url'] + '.csv?'
         time_url = base_url + urllib.parse.quote_plus('time&orderByMinMax("time")')
@@ -50,12 +56,17 @@ def update_mission(mid, mission):
         # tdf = pd.read_csv(time_url, skiprows=[1])
         start_date = tdf['time'].min()
         end_date = tdf['time'].max()
-        req_vars = 'latitude,longitude,time,' + dsg_id
+        extra_var = 'SOG'
+        for extra_var in drone_vars:
+            if extra_var != 'latitude' and extra_var != 'longitude' and extra_var != 'time' and extra_var != dsg_id:
+                break
+        req_vars = f'latitude,longitude,time,{dsg_id},{extra_var}'
         query = '&orderByClosest("time,1day")&'+dsg_id+'="'+d+'"'
         q = urllib.parse.quote(query)
         url = base_url + req_vars + q
         print("Locations:", url)
         df = read_csv_with_retries_requests(url, retries=10, delay=60)
+        df.drop(extra_var, axis=1, inplace=True)
         # df = pd.read_csv(url, skiprows=[1])
         # Don't drop, just take the rows where lat or lon is not NA:
         df = df[df['latitude'].notna()]
@@ -63,7 +74,6 @@ def update_mission(mid, mission):
         df['mission_id'] = mid
         df['title'] = mission['ui']['title']
         df[dsg_id] = df[dsg_id].astype(str)
-        drone_vars, d_long_names, d_units, standard_names, var_types = info.get_variables()
         drones[d]['variables'] = drone_vars
         drones[d]['start_date'] = start_date
         drones[d]['color'] = color
@@ -93,7 +103,7 @@ def update_mission(mid, mission):
 
 # Run this once from the workspace before deploying the application
 
-def load_missions():
+def load_missions(force=False):
     with open('config/missions.json') as missions_config:
         config_json = json.load(missions_config)
     collections = config_json['collections']
@@ -103,20 +113,24 @@ def load_missions():
         member = collections[collection]     
         for idx, mid in enumerate(member['missions']):
             mission = member['missions'][mid]
-            df = update_mission(mid, mission)
-            if outeridx == 0:
-                locations_df = df
-            else:
-                locations_df = pd.concat([locations_df, df])
-            outeridx = outeridx + 1
+            mission_exists_df = db.get_mission_locations_notsorted(mid)
+            print(mission_exists_df['mission_id'].unique())
+            if mission_exists_df.empty or force or mission['active'] == 'true':
+                df = update_mission(mid, mission)
+                print(f'{df.shape[0]} records found for {mid}')
+                if not df.empty:
+                    if outeridx == 0 and force:
+                        df.to_sql(constants.locations_table, constants.postgres_engine, if_exists='replace', index=False)
+                    else:
+                        print(f'deleting previous records for {mid}')
+                        db.delete_ds_drones(mid)
+                        print(f'Saving {df.shape[0]} new records for {mid}')
+                        df.rename(columns={mission['dsg_id']: 'trajectory'}, inplace=True)
+                        df.to_sql(constants.locations_table, constants.postgres_engine, if_exists='append', index=False)
+                    outeridx = outeridx + 1
                 
     logger.info('Setting the mission locations...')
-    locations_df.to_sql(constants.locations_table, constants.postgres_engine, if_exists='replace', index=False)
 
-import pandas as pd
-import requests
-import time
-import io
 
 def read_csv_with_retries_requests(url, retries=10, delay=5):
     """

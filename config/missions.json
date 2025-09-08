@@ -499,8 +499,31 @@
         "saildrone_2023":{
             "title": "2023 USV Missions",
             "missions": {
+                "2023_3_SWFSC":{
+                    "active": "false",
+                    "downloads": "true",
+                    "ui": {
+                        "title": "2023 SWFSC Survey",
+                        "href": "https://www.fisheries.noaa.gov/science-blog/2023-california-current-ecosystem-survey",
+                        "max_columns": "3"
+                    },
+                    "drones": {
+                        "1048.0": {
+                            "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/sd1048_swfsc_2023",
+                            "label": "1048"
+                        },
+                        "1060.0": {
+                            "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/sd1060_swfsc_2023",
+                            "label": "1060"
+                        },
+                        "1096.0": {
+                            "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/sd1096_swfsc_2023",
+                            "label": "1096"
+                        }
+                    }
+                },
                 "2023_2_tpos": {
-                    "active": "true",
+                    "active": "false",
                     "downloads": "true",
                     "ui": {
                         "title": "2023 TPOS PMEL Surface Data",
@@ -521,6 +544,65 @@
                             "label": "1079"
                         }
                     }                
+                },
+                "2023_1_atlantic_hurricane": {
+                    "active": "false",
+                    "downloads": "false",
+                    "ui": {
+                        "title": "2023 Atlantic Hurricane",
+                        "href": "https://www.pmel.noaa.gov/saildrone-hurricane/2023/index.html",
+                        "max_columns": "3"
+                    },
+                    "drones":{
+                        "1031.0": {
+                            "url": "http://smokey.pmel.noaa.gov:8140/erddap/tabledap/sd1031_hurricane_2023",
+                            "label": "1031"
+                        },
+                        "1036.0": {
+                            "url": "http://smokey.pmel.noaa.gov:8140/erddap/tabledap/sd1036_hurricane_2023",
+                            "label": "1036"
+                        },
+                        "1040.0": {
+                            "url": "http://smokey.pmel.noaa.gov:8140/erddap/tabledap/sd1040_hurricane_2023",
+                            "label": "1040"
+                        },
+                        "1041.0": {
+                            "url": "http://smokey.pmel.noaa.gov:8140/erddap/tabledap/sd1041_hurricane_2023",
+                            "label": "1041"
+                        },
+                        "1042.0": {
+                            "url": "http://smokey.pmel.noaa.gov:8140/erddap/tabledap/sd1042_hurricane_2023",
+                            "label": "1042"
+                        },
+                        "1045.0": {
+                            "url": "http://smokey.pmel.noaa.gov:8140/erddap/tabledap/sd1045_hurricane_2023",
+                            "label": "1045"
+                        },
+                        "1057.0": {
+                            "url": "http://smokey.pmel.noaa.gov:8140/erddap/tabledap/sd1057_hurricane_2023",
+                            "label": "1057"
+                        },
+                        "1064.0": {
+                            "url": "http://smokey.pmel.noaa.gov:8140/erddap/tabledap/sd1064_hurricane_2023",
+                            "label": "1064"
+                        },
+                        "1065.0": {
+                            "url": "http://smokey.pmel.noaa.gov:8140/erddap/tabledap/sd1065_hurricane_2023",
+                            "label": "1065"
+                        },
+                        "1068.0": {
+                            "url": "http://smokey.pmel.noaa.gov:8140/erddap/tabledap/sd1068_hurricane_2023",
+                            "label": "1068"
+                        },
+                        "1069.0": {
+                            "url": "http://smokey.pmel.noaa.gov:8140/erddap/tabledap/sd1069_hurricane_2023",
+                            "label": "1069"
+                        },
+                        "1083.0": {
+                            "url": "http://smokey.pmel.noaa.gov:8140/erddap/tabledap/sd1083_hurricane_2023",
+                            "label": "1083"
+                        }
+                    }
                 }
             }
         },
@@ -528,7 +610,7 @@
             "title": "2024 USV Missions",
             "missions": {
                 "2024_tpos": {
-                    "active": "true",
+                    "active": "false",
                     "downloads": "true",
                     "ui": {
                         "title": "2024 TPOS",
@@ -545,6 +627,101 @@
                             "label": "1090"
                         }
                     } 
+                },
+                "2024_1_atlantic_hurricane": {
+                    "active": "false",
+                    "downloads": "true",
+                    "ui": {
+                        "title": "2024 Atlantic Hurricane",
+                        "href": "https://www.pmel.noaa.gov/saildrone-hurricane/2024/index.html",
+                        "max_columns": "3"
+                    },
+                    "drones":{
+                        "1030.0": {
+                            "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/sd1030_hurricane_2024",
+                            "label": "1030"
+                        },
+                        "1031.0": {
+                            "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/sd1031_hurricane_2024",
+                            "label": "1031"
+                        },
+                        "1036.0": {
+                            "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/sd1036_hurricane_2024",
+                            "label": "1036"                        
+                        },
+                        "1040.0": {
+                            "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/sd1040_hurricane_2024",
+                            "label": "1040"                        
+                        },
+                        "1041.0": {
+                            "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/sd1041_hurricane_2024",
+                            "label": "1041"                        
+                        },
+                        "1042.0": {
+                            "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/sd1042_hurricane_2024",
+                            "label": "1042"                        
+                        },
+                        "1045.0": {
+                            "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/sd1045_hurricane_2024",
+                            "label": "1045"                        
+                        },
+                        "1057.0": {
+                            "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/sd1057_hurricane_2024",
+                            "label": "1057"                        
+                        },
+                        "1068.0": {
+                            "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/sd1068_hurricane_2024",
+                            "label": "1068"                        
+                        },
+                        "1069.0": {
+                            "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/sd1069_hurricane_2024",
+                            "label": "1069"                        
+                        },
+                        "1083.0": {
+                            "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/sd1083_hurricane_2024",
+                            "label": "1083"                        
+                        },
+                        "1091.0": {
+                            "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/sd1091_hurricane_2024",
+                            "label": "1091"                        
+                        } 
+                    }
+                }
+            }
+        },
+        "usv2025":{
+            "title": "2025 USV Missions",
+            "missions": {
+                "2025_1_atlantic_hurricane": {
+                    "active": "true",
+                    "downloads": "false",
+                    "ui": {
+                        "title": "2025 Atlantic Hurricane",
+                        "href": "https://www.pmel.noaa.gov/usv-hurricane/2025/index.html",
+                        "max_columns": "3"
+                    },
+                    "drones":{
+                        "PC2": {
+                            "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/oshenPC2_hurricane_2025",
+                            "label": "PC2"
+                        },
+                        "PC3": {
+                            "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/oshenPC3_hurricane_2025",
+                            "label": "PC3"
+                        },
+                        "PC4": {
+                            "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/oshenPC4_hurricane_2025",
+                            "label": "PC4"
+                        },
+                        "PC6": {
+                            "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/oshenPC6_hurricane_2025",
+                            "label": "PC6"
+                        },
+                        "PC8": {
+                            "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/oshenPC8_hurricane_2025",
+                            "label": "PC8"
+                        }
+                    }
                 }
             }
         }     

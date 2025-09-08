@@ -36,6 +36,7 @@ connection_string = "postgresql+pg8000" + os.environ.get(
 # `poolclass=NullPool` prevents the Engine from using any connection more than once. You'll find more info here:
 # https://docs.sqlalchemy.org/en/14/core/pooling.html#using-connection-pools-with-multiprocessing-or-os-fork
 postgres_engine = create_engine(connection_string, poolclass=NullPool)
+# postgres_engine = create_engine(connection_string, pool_pre_ping=True)
 
 if os.environ.get("DASH_ENTERPRISE_ENV") == "WORKSPACE":
     base = '/workspace/view/workspace-usv/'

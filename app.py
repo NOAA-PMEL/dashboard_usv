@@ -140,4 +140,4 @@ app.layout = ddk.App(show_editor=False, theme=constants.theme, children=[
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run(debug=True)

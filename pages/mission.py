@@ -275,7 +275,7 @@ def layout(mission_id=None, **params):
                                 ),
                             ]),
                             ddk.ControlItem(width=20, children=[
-                                dcc.Checklist(id='plots-per', options=[{'label': 'One plot per drone', 'value': 'one'}], value=check_plots_per) 
+                                dcc.Checklist(id='plots-per', options=[{'label': 'One plot per vehicle', 'value': 'one'}], value=check_plots_per) 
                             ]),
                             ddk.ControlItem(width=20, children=[
                                 dcc.Dropdown(
@@ -630,7 +630,7 @@ def make_trajectory_trace(trace_config, state_search):
         # Trim the locations by time and selected drones
         df = df.loc[df['time']>=trace_start_date]
         df = df.loc[df['time']<=trace_end_date]
-        df = df.loc[df[the_cur_mission['dsg_id']].isin(pdrones)]
+        df = df.loc[df['trajectory'].isin(pdrones)]
         # this is a special plot of only the locations of the drones
         drone_map = px.scatter_geo(
             df, 
@@ -640,7 +640,7 @@ def make_trajectory_trace(trace_config, state_search):
             fitbounds='locations', 
             hover_data=['time'], 
             color_discrete_sequence=px.colors.qualitative.Dark24,
-            title='Daily locations of each mission drone.'
+            title='Daily locations of each mission vehicle.'
         )
         drone_map.update_geos(
             resolution=50,
@@ -669,8 +669,8 @@ def make_trajectory_trace(trace_config, state_search):
         trace_variable.append('latitude')
     if 'longitude' not in trace_variable:
         trace_variable.append('longitude')
-    if 'trajectory' not in trace_variable:
-        trace_variable.append('trajectory')
+    if the_cur_mission['dsg_id'] not in trace_variable:
+        trace_variable.append(the_cur_mission['dsg_id'])
     req_var = ",".join(trace_variable)
 
     order_by = '&orderBy("time")'
@@ -686,7 +686,7 @@ def make_trajectory_trace(trace_config, state_search):
     data_tables = []
     for drone_id in pdrones:
         base_url = cur_drones[drone_id]['url'] + '.csv?'
-        traj_query = '&trajectory="' + drone_id + '"' + order_by
+        traj_query = f'&{the_cur_mission["dsg_id"]}="{drone_id}"{order_by}'
         encoded_query = quote(traj_query, safe='&()=:/')
         tr_drone_url = base_url + req_var + encoded_query
         try:
@@ -708,7 +708,7 @@ def make_trajectory_trace(trace_config, state_search):
     df = df[df[trace_variable[0]].notna()]
     df.loc[:, 'text_time'] = df['time'].astype(str)
     df.loc[:, 'millis'] = pd.to_datetime(df['time']).astype(np.int64)
-    df.loc[:, 'text'] = df['text_time'] + "<br>" + df['trajectory'].astype(str) + "<br>" + trace_variable[0] + '=' + df[
+    df.loc[:, 'text'] = df['text_time'] + "<br>" + df[the_cur_mission['dsg_id']].astype(str) + "<br>" + trace_variable[0] + '=' + df[
         trace_variable[0]].astype(str)
     plot_var = trace_variable[0]
     name_var = trace_variable[0]
@@ -726,7 +726,7 @@ def make_trajectory_trace(trace_config, state_search):
     zoom, center = zc.zoom_center(lons=df['longitude'], lats=df['latitude'])
     annotation = None
     if df.shape[0] > 25000:
-        df = df.sample(n=25000).sort_values(by=['time', 'trajectory'], ascending=True)
+        df = df.sample(n=25000).sort_values(by=['time', the_cur_mission['dsg_id']], ascending=True)
         annotation = 'Sub-sampled to 25,000 points.'
     location_trace = go.Figure(go.Scattermap(lat=df["latitude"], lon=df["longitude"],
                                       text=df['text'],
@@ -944,8 +944,8 @@ def make_plots(set_progress, trigger, state_search):
         plot_variables.append('latitude')
     if 'longitude' not in plot_variables:
         plot_variables.append('longitude')
-    if 'trajectory' not in plot_variables:
-        plot_variables.append('trajectory')
+    if the_mission_config['dsg_id'] not in plot_variables:
+        plot_variables.append(the_mission_config['dsg_id'])
 
     order_by = '&orderBy("time")'
     if plots_decimation > 0:
@@ -975,9 +975,9 @@ def make_plots(set_progress, trigger, state_search):
                 
         req_var = ",".join(drone_plot_variables)
         url_base = cur_drones[d_ts]['url'] + '.csv?'
-        query = '&trajectory="' + d_ts + '"' + order_by
+        query = f'&{the_mission_config["dsg_id"]}="{d_ts}"{order_by}'
         q = urllib.parse.quote(query, safe='&()=:/')
-        full_query = '&trajectory="' + d_ts + '"'
+        full_query = f'&{the_mission_config["dsg_id"]}="{d_ts}"'
         fq = urllib.parse.quote(full_query, safe='&()=:/')
         drone_url = url_base + req_var + q
         download_urls[d_ts] = url_base + req_var + fq + download_time_con_start + download_time_con_end
@@ -998,14 +998,14 @@ def make_plots(set_progress, trigger, state_search):
     df = pd.concat(plot_data_tables)
     if df.shape[0] < 3:
         return [constants.get_blank('No data for this combination of selections.'), True]
-    df['trajectory'] = df['trajectory'].astype(str)
+    df[the_mission_config["dsg_id"]] = df[the_mission_config["dsg_id"]].astype(str)
     colnames = list(df.columns)
     df.loc[:, 'text_time'] = df['time'].astype(str)
     annotation = None
     sub_title = ''
     if df.shape[0] > 25000:
         annotation = 'All timeseries plots sub-sampled to 25,000 total points each.'
-        df = df.sample(n=25000).sort_values(by=['time', 'trajectory'], ascending=True)
+        df = df.sample(n=25000).sort_values(by=['time', the_mission_config["dsg_id"]], ascending=True)
     subplots = {}
     titles = {}
     # DEBUG print('finished subsample')
@@ -1031,7 +1031,7 @@ def make_plots(set_progress, trigger, state_search):
     colnames.remove('latitude')
     colnames.remove('longitude')
     colnames.remove('time')
-    colnames.remove('trajectory')
+    colnames.remove(the_mission_config['dsg_id'])
     mode = 'lines'
     if 'mode' in plots_config['config']:
         mode = plots_config['config']['mode']
@@ -1040,7 +1040,7 @@ def make_plots(set_progress, trigger, state_search):
     legend_count = 0
     for var in original_order:
         if var in df.columns.to_list():
-            dfvar = df[['time', 'text_time', 'trajectory', var]].copy()
+            dfvar = df[['time', 'text_time', the_mission_config['dsg_id'], var]].copy()
             # dfvar.loc[:, 'text_time'] = dfvar['time'].astype(str)
             dfvar.loc[:, 'time'] = pd.to_datetime(dfvar['time'])
             dfvar.dropna(subset=[var], how='all', inplace=True)
@@ -1049,7 +1049,7 @@ def make_plots(set_progress, trigger, state_search):
                 for drn in tsdrones:
                     index = sorted(list(cur_drones.keys())).index(drn)
                     n_color = px.colors.qualitative.Dark24[index % 24]
-                    dfvar_drone = dfvar.loc[(dfvar['trajectory'] == drn)]
+                    dfvar_drone = dfvar.loc[(dfvar[the_mission_config['dsg_id']] == drn)]
                     if plots_decimation > 0 and dfvar_drone.shape[0] > 3:
                         df2 = dfvar_drone.set_index('time')
                         # make a index at the expected delta
@@ -1057,11 +1057,11 @@ def make_plots(set_progress, trigger, state_search):
                         all_dates = fill_dates.append(df2.index)
                         fill_sort = sorted(all_dates)
                         pdf3 = df2.reindex(fill_sort)
-                        mask1 = ~pdf3['trajectory'].notna() & ~pdf3['trajectory'].shift().notna()
-                        mask2 = pdf3['trajectory'].notna()
+                        mask1 = ~pdf3[the_mission_config['dsg_id']].notna() & ~pdf3[the_mission_config['dsg_id']].shift().notna()
+                        mask2 = pdf3[the_mission_config['dsg_id']].notna()
                         pdf4 = pdf3[mask1 | mask2]
                         dfvar_drone = pdf4.reset_index()
-                    dfvar_drone = dfvar_drone.sort_values(by=['time', 'trajectory'], ascending=True)
+                    dfvar_drone = dfvar_drone.sort_values(by=['time', the_mission_config['dsg_id']], ascending=True)
                     show_legend=True
                     if legend_count > 0:
                         show_legend=False
@@ -1080,6 +1080,8 @@ def make_plots(set_progress, trigger, state_search):
 
                 if var in cur_units:
                     title = title + ' (' + cur_units[var] + ')'
+                # Special kludge for the oshen long_names
+                title = title.replace(" over last met_averaging_period", "")
                 titles[var] = title
 
     if plots_per == 'all':
