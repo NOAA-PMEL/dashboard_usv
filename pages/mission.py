@@ -181,7 +181,7 @@ def layout(mission_id=None, **params):
             ddk.Row([
                 ddk.Block(width=.1, children=[
                     ddk.ControlCard(children=[
-                        ddk.CardHeader(title='Date Range and Drone Selection for all Plots'),
+                        ddk.CardHeader(title='Date Range and Vehicle Selection for all Plots'),
                         ddk.ControlItem(label='Date Range:', children=[
                             ddk.Block(width=.5, children=[
                                 dcc.Input(id='start-date', debounce=True, value=mission_start_date),
