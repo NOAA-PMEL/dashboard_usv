@@ -93,6 +93,14 @@ app.layout = ddk.App(show_editor=False, theme=constants.theme, children=[
                 ddk.Title('Uncrewed Surface Vehicle Missions'),
                 href=constants.base
             ),
+            html.Div(style={"font-size":".73em", 'padding': "10px", 'margin':'5px', "border": "2px solid red"},
+                children=[
+                    "The U.S. government is closed. This site will not be updated; however, NOAA websites and social media channels necessary to protect lives and property will be maintained. To learn more, visit ",
+                    dcc.Link(href="https://www.commerce.gov/news/blog", children=["commerce.gov."]),
+                    "  For the latest forecasts and critical weather information, visit ",
+                    dcc.Link(href="https://weather.gov", children="weather.gov.")
+                ]
+            ),
             ddk.Menu(children=menu),
         ]
     ),            
