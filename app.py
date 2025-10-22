@@ -96,9 +96,9 @@ app.layout = ddk.App(show_editor=False, theme=constants.theme, children=[
             html.Div(style={"font-size":".73em", 'padding': "10px", 'margin':'5px', "border": "2px solid red"},
                 children=[
                     "The U.S. government is closed. This site will not be updated; however, NOAA websites and social media channels necessary to protect lives and property will be maintained. To learn more, visit ",
-                    dcc.Link(href="https://www.commerce.gov/news/blog", target="_blank", children=["commerce.gov/news/blog."]),
+                    dcc.Link(href="https://www.commerce.gov/news/blog", target="_blank", style={"color":"blue","text-decoration":"underline"}, children=["commerce.gov/news/blog."]),
                     "  For the latest forecasts and critical weather information, visit ",
-                    dcc.Link(href="https://weather.gov", target="_blank", children="weather.gov.")
+                    dcc.Link(href="https://weather.gov", target="_blank", style={"color":"blue","text-decoration":"underline"}, children="weather.gov.")
                 ]
             ),
             ddk.Menu(children=menu),
