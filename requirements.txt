@@ -1,14 +1,2 @@
-celery
 dash-design-kit
-dash<3.0
-plotly>=6.0.1
-gunicorn
-pandas>=2.2.3
-redis
-SQLAlchemy
-pg8000
-diskcache
-psutil
-multiprocess
-tsdownsample
-git+https://github.com/noaaroland/sdig.git
+dash
