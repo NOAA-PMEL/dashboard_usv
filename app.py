@@ -1,5 +1,7 @@
 from dash import Dash, dcc, html, Input, Output
 
+# get folks off the old URL with this redirect app
+
 app = Dash(__name__)
 
 app.layout = html.Div([
