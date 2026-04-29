@@ -3,6 +3,7 @@ from dash import Dash, dcc, html, Input, Output
 # get folks off the old URL with this redirect app
 
 app = Dash(__name__)
+server = app.server
 
 app.layout = html.Div([
     # refresh=True allows the browser to reload at the new URL
