@@ -740,30 +740,34 @@
                     "active": "true",
                     "downloads": "false",
                     "ui": {
-                        "title": "2025 Atlantic Hurricane (Saildrones)",
+                        "title": "2026 Atlantic Hurricane (Saildrones)",
                         "href": "https://research.noaa.gov/new-technology-advanced-models-and-artificial-intelligence-deployed-to-improve-hurricane-forecasts/",
                         "max_columns": "3"
                     },
                     "drones":{
-                        "PC2": {
-                            "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/oshenPC2_hurricane_2025",
-                            "label": "PC2"
+                        "1030": {
+                            "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/sd1030_hurricane_2026",
+                            "label": "1030"
                         },
-                        "PC3": {
-                            "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/oshenPC3_hurricane_2025",
-                            "label": "PC3"
+                        "1040": {
+                            "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/sd1040_hurricane_2026",
+                            "label": "1040"
                         },
-                        "PC4": {
-                            "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/oshenPC4_hurricane_2025",
-                            "label": "PC4"
+                        "1074": {
+                            "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/sd1074_hurricane_2026",
+                            "label": "1074"
                         },
-                        "PC6": {
-                            "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/oshenPC6_hurricane_2025",
-                            "label": "PC6"
+                        "1083": {
+                            "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/sd1083_hurricane_2026",
+                            "label": "1083"
                         },
-                        "PC8": {
-                            "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/oshenPC8_hurricane_2025",
-                            "label": "PC8"
+                        "1084": {
+                            "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/sd1084_hurricane_2026",
+                            "label": "1084"
+                        },
+                        "1091": {
+                            "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/sd1091_hurricane_2026",
+                            "label": "1091"
                         }
                     }
                 }
