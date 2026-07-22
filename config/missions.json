@@ -701,6 +701,50 @@
                         "max_columns": "3"
                     },
                     "drones":{
+                        "1030": {
+                            "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/sd1030_hurricane_2026",
+                            "label": "1030"
+                        },
+                        "1030": {
+                            "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/sd1030_hurricane_2026",
+                            "label": "1030"
+                        },
+                        "1040": {
+                            "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/sd1040_hurricane_2026",
+                            "label": "1040"
+                        },
+                        "1074": {
+                            "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/sd1074_hurricane_2026",
+                            "label": "1074"
+                        },
+                        "1083": {
+                            "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/sd1083_hurricane_2026",
+                            "label": "1083"
+                        },
+                        "1084": {
+                            "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/sd1084_hurricane_2026",
+                            "label": "1084"
+                        },
+                        "1091": {
+                            "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/sd1091_hurricane_2026",
+                            "label": "1091"
+                        }
+                    }
+                }
+            }
+        },
+        "usv2026":{
+            "title": "2026 USV Missions",
+            "missions": {
+                "2026_1_atlantic_hurricane": {
+                    "active": "true",
+                    "downloads": "false",
+                    "ui": {
+                        "title": "2025 Atlantic Hurricane (Saildrones)",
+                        "href": "https://research.noaa.gov/new-technology-advanced-models-and-artificial-intelligence-deployed-to-improve-hurricane-forecasts/",
+                        "max_columns": "3"
+                    },
+                    "drones":{
                         "PC2": {
                             "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/oshenPC2_hurricane_2025",
                             "label": "PC2"
@@ -725,5 +769,6 @@
                 }
             }
         }     
+    
     }
 }

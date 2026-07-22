@@ -1,5 +1,5 @@
 import dash
-from dash import html, dcc, callback, exceptions, Input, Output, State, callback_context
+from dash import html, dcc, callback, exceptions, Input, Output, State, callback_context, clientside_callback, ClientsideFunction
 import dash_design_kit as ddk
 import plotly.graph_objects as go
 import plotly.express as px
@@ -638,7 +638,7 @@ def make_trajectory_trace(trace_config, state_search):
             lon='longitude', 
             color='trajectory', 
             fitbounds='locations', 
-            hover_data=['time'], 
+            hover_data=['time'],
             color_discrete_sequence=px.colors.qualitative.Dark24,
             title='Daily locations of each mission vehicle.'
         )
@@ -726,10 +726,11 @@ def make_trajectory_trace(trace_config, state_search):
     zoom, center = zc.zoom_center(lons=df['longitude'], lats=df['latitude'])
     annotation = None
     if df.shape[0] > 25000:
-        df = df.sample(n=25000).sort_values(by=['time', the_cur_mission['dsg_id']], ascending=True)
+        df = df.sample(n=25000).sort_values(by=['time', the_cur_mission['dsg_id']], ascending=True, random_state=42)
         annotation = 'Sub-sampled to 25,000 points.'
     location_trace = go.Figure(go.Scattermap(lat=df["latitude"], lon=df["longitude"],
                                       text=df['text'],
+                                      customdata=df['time'].astype(str),
                                       marker=dict(showscale=True, color=df[plot_var],
                                                   colorscale=color_scale, size=8,
                                                   colorbar=color_bar_opts, 
@@ -1005,7 +1006,7 @@ def make_plots(set_progress, trigger, state_search):
     sub_title = ''
     if df.shape[0] > 25000:
         annotation = 'All timeseries plots sub-sampled to 25,000 total points each.'
-        df = df.sample(n=25000).sort_values(by=['time', the_mission_config["dsg_id"]], ascending=True)
+        df = df.sample(n=25000).sort_values(by=['time', the_mission_config["dsg_id"]], ascending=True, random_state=42)
     subplots = {}
     titles = {}
     # DEBUG print('finished subsample')
@@ -1067,6 +1068,7 @@ def make_plots(set_progress, trigger, state_search):
                         show_legend=False
                     varplot = go.Scattergl(x=dfvar_drone['time'], y=dfvar_drone[var], name=drn,
                                         marker={'color': n_color},
+                                        customdata=dfvar_drone['text_time'],
                                         mode=mode, hoverinfo='x+y+name', showlegend=show_legend, legendgroup=drn)
                     progress = progress + 1
                     set_progress((str(progress), str(max_progress)))
@@ -1254,3 +1256,19 @@ def set_date_range_from_slider(slide_values, in_start_date, in_end_date,):
             start_output,
             end_output
             ]
+
+# Hover: TS -> Map
+clientside_callback(
+    ClientsideFunction(namespace='clientside', function_name='sync_hover'),
+    Output('trajectory-map', 'id'), # Dummy
+    Input('timeseries-plots', 'hoverData'),
+    State('trajectory-map', 'id')
+)
+
+# Hover: Map -> TS
+clientside_callback(
+    ClientsideFunction(namespace='clientside', function_name='sync_hover'),
+    Output('timeseries-plots', 'id'), # Dummy
+    Input('trajectory-map', 'hoverData'),
+    State('timeseries-plots', 'id')
+)
