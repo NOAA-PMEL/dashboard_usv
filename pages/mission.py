@@ -35,6 +35,18 @@ blank_map = constants.get_blank('Pick one or more drones<br>Pick a variable')
 
 dash.register_page(__name__, path="/mission", path_template='/mission/<mission_id>')
 
+# TODO upgrade to newer python and get rid of this function
+def parse_iso_datetime(date_str: str) -> datetime.datetime:
+    """Safely parse ISO datetime strings with or without 'Z' suffixes in Python 3.10."""
+    if not date_str:
+        raise ValueError("Input date string cannot be empty.")
+
+    # Convert trailing 'Z' or 'z' to numeric UTC offset for Python 3.10 compatibility
+    if date_str.endswith(("Z", "z")):
+        date_str = date_str[:-1] + "+00:00"
+
+    return datetime.datetime.fromisoformat(date_str)
+
 def layout(mission_id=None, **params):
     if mission_id is None:
         return html.Div('')
@@ -85,16 +97,16 @@ def layout(mission_id=None, **params):
         set_end_date = params['end_date']
     else:
         set_end_date = df.time.max()
-        sed = datetime.datetime.strptime(set_end_date, '%Y-%m-%dT%H:%M:%SZ')
+        sed = parse_iso_datetime(set_end_date)
         sed = sed + datetime.timedelta(hours=36)
         set_end_date = sed.strftime(d_format)
         
     mission_start_date = df.time.min()
-    sd = datetime.datetime.strptime(mission_start_date, '%Y-%m-%dT%H:%M:%SZ')
+    sd = parse_iso_datetime(mission_start_date)
     mission_start_seconds = sd.timestamp()
     mission_start_date = sd.strftime(d_format)
     mission_end_date = df.time.max()
-    ed = datetime.datetime.strptime(mission_end_date, '%Y-%m-%dT%H:%M:%SZ')
+    ed = parse_iso_datetime(mission_end_date)
     ed = ed + datetime.timedelta(hours=36)
     mission_end_seconds = ed.timestamp()
     mission_end_date = ed.strftime(d_format)
@@ -1256,19 +1268,3 @@ def set_date_range_from_slider(slide_values, in_start_date, in_end_date,):
             start_output,
             end_output
             ]
-
-# Hover: TS -> Map
-clientside_callback(
-    ClientsideFunction(namespace='clientside', function_name='sync_hover'),
-    Output('trajectory-map', 'id'), # Dummy
-    Input('timeseries-plots', 'hoverData'),
-    State('trajectory-map', 'id')
-)
-
-# Hover: Map -> TS
-clientside_callback(
-    ClientsideFunction(namespace='clientside', function_name='sync_hover'),
-    Output('timeseries-plots', 'id'), # Dummy
-    Input('trajectory-map', 'hoverData'),
-    State('timeseries-plots', 'id')
-)
