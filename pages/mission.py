@@ -17,6 +17,7 @@ import sdig.util.zc as zc
 from sdig.erddap.info import Info
 import time
 import dash_bootstrap_components as dbc
+from app import long_color_sequence
 
 
 height_of_row = 345
@@ -651,7 +652,7 @@ def make_trajectory_trace(trace_config, state_search):
             color='trajectory', 
             fitbounds='locations', 
             hover_data=['time'],
-            color_discrete_sequence=px.colors.qualitative.Dark24,
+            color_discrete_sequence=long_color_sequence,
             title='Daily locations of each mission vehicle.'
         )
         drone_map.update_geos(
@@ -665,6 +666,7 @@ def make_trajectory_trace(trace_config, state_search):
             legend_title_text='Drone',
             legend_orientation='v',
             legend_x=constants.legend_location,
+            uirevision='FIXED_MAP'
         )
         return [drone_map]
 
