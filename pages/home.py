@@ -51,6 +51,7 @@ def layout():
         ],
         map_zoom=zoom,
         map_center=center,
+        uirevision='FIXED'
     )
 
     layout = ddk.Block(width=1., children=[
