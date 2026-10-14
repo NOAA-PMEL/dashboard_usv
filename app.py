@@ -17,6 +17,12 @@ from celery.utils.log import get_task_logger
 
 logger = get_task_logger(__name__)
 
+long_color_sequence = (
+    px.colors.qualitative.Alphabet + 
+    px.colors.qualitative.Light24 + 
+    px.colors.qualitative.Dark24
+)
+
 
 celery_app = Celery(broker=os.environ.get("REDIS_URL", "redis://127.0.0.1:6379"), backend=os.environ.get("REDIS_URL", "redis://127.0.0.1:6379"))
 if os.environ.get("DASH_ENTERPRISE_ENV") == "WORKSPACE":
@@ -68,7 +74,7 @@ for collection in sorted(collections, reverse=True):
     for idx, m in enumerate(sorted(missions)):
         mission = missions[m]
         link = constants.base + 'mission?mission_id=' + m
-        icolor = px.colors.qualitative.Dark24[coloridx]
+        icolor = long_color_sequence[coloridx]
         coloridx = coloridx + 1
         menu_item = dcc.Link(children=[ddk.Icon(icon_name='database', icon_color=icolor), mission['ui']['title']], href=link)
         member_children.append(menu_item)
