@@ -869,6 +869,21 @@
                             "label": "1090"
                         }
                     }
+                },
+                "2026_3_coco2": {
+                    "active": "true",
+                    "downloads": "false",
+                    "ui": {
+                        "title": "2026 COCO2",
+                        "href": "https://www.noaa.gov/news/saildrone-research-fleet-to-circle-antarctica-for-5-years",
+                        "max_columns": "3"
+                    },
+                    "drones":{
+                        "1092": {
+                            "url": "https://data.pmel.noaa.gov/pmel/erddap/tabledap/sd1092_coco2_2026",
+                            "label": "1092"
+                        }
+                    }
                 }
             }
         }     
